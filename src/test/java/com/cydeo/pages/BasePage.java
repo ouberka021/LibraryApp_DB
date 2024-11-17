@@ -17,7 +17,6 @@ public abstract  class BasePage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
-
     @FindBy(xpath = "//span[@class='title'][.='Users']")
     public WebElement users;
 
@@ -30,7 +29,7 @@ public abstract  class BasePage {
     @FindBy(tagName = "h3")
     public WebElement pageHeader;
 
-    @FindBy(css = "#navbarDropdown>span")
+    @FindBy(xpath = "//a[@id='navbarDropdown']//span")
     public WebElement accountHolderName;
 
     @FindBy(linkText = "Log Out")
@@ -44,4 +43,18 @@ public abstract  class BasePage {
     public void navigateModule(String moduleName){
         Driver.getDriver().findElement(By.xpath("//span[@class='title'][.='"+moduleName+"']")).click();
     }
+
+    public String getCount(String details){
+        // String manipulation
+        // Showing 1 to 10 of 1,762 entries
+
+        int startIndex=details.indexOf("f")+2;
+        int endIndex=details.indexOf("entries")-1;
+        // UI is Actual
+        String actualCount=details.substring(startIndex,endIndex)
+                .replace(",","");
+
+        return actualCount;
+    }
+
 }

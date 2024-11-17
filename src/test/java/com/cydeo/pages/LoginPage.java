@@ -22,14 +22,16 @@ public class LoginPage {
     @FindBy(tagName = "button")
     public WebElement loginButton;
 
-
+public void login(String username, String password){
+    emailBox.sendKeys(username);
+    passwordBox.sendKeys(password);
+    loginButton.click();
+}
 
     public void login(String userType){
 
         String username=ConfigurationReader.getProperty(userType+"_username");
         String password=ConfigurationReader.getProperty("password");
-
-
         emailBox.sendKeys(username);
         passwordBox.sendKeys(password);
         loginButton.click();
