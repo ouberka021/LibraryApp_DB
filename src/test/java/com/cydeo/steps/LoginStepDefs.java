@@ -13,10 +13,13 @@ public class LoginStepDefs {
     LoginPage loginpage = new LoginPage();
     DashBoardPage dashboardpage = new DashBoardPage();
     String actualUsername;
+    String actualEmail;
 
     @Given("the user logged in  {string} and {string}")
     public void the_user_logged_in_and(String email, String password) {
         loginpage.login(email, password);
+        this.actualEmail = email;
+
         BrowserUtil.waitFor(1);
     }
 
@@ -28,7 +31,7 @@ public class LoginStepDefs {
         System.out.println("Actual Username --> " + actualUsername);
 
         // DB_Util.createConnection(); created in the hooks page
-        String query = "select  full_name from users where email = 'librarian30@library'";
+        String query = "select  full_name from users where email = '" + actualEmail + "'";
         DB_Util.runQuery(query);
         String expectedUsername = DB_Util.getFirstRowFirstColumn();
         System.out.println("Expected Username --> " + expectedUsername);
