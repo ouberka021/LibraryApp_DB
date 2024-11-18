@@ -59,7 +59,22 @@ String email;
     }
 
     @Then("the user changes current user status {string} to {string}")
-    public void the_user_changes_current_user_status_to(String INACTIVE, String ACTIVE) {
+    public void the_user_changes_current_user_status_to(String inactive, String active) {
+        BrowserUtil.waitFor(1);
+        // this step for switch user button page to inactive users
+        Select select = new Select(usersPage.userStatusDropdown);
+        // select inactive
+        select.selectByVisibleText(inactive);
+        usersPage.searchField.sendKeys(email);
+        BrowserUtil.waitFor(3);
+        usersPage.editUser.click();
+        BrowserUtil.waitFor(1);
+        //we need to change status of the first user that we clicked
+        Select select2 = new Select(usersPage.statusDropdown);
+        BrowserUtil.waitFor(1);
+        select2.selectByVisibleText(active);
+        BrowserUtil.waitFor(2);
+        usersPage.saveChanges.click();
 
     }
 
